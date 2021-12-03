@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\AssetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Internal\TentativeType;
 
 /**
  * @ORM\Entity(repositoryClass=AssetRepository::class)
  */
-class Asset
+class Asset implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -55,5 +56,14 @@ class Asset
         $this->customer = $customer;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'customer' => $this->getCustomer()->getId()
+        ];
     }
 }
