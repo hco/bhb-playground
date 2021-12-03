@@ -29,6 +29,11 @@ class Customer
      */
     private $assets;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
     public function __construct()
     {
         $this->assets = new ArrayCollection();
@@ -77,6 +82,18 @@ class Customer
                 $asset->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }
